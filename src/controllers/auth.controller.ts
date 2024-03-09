@@ -17,6 +17,9 @@ export class AuthController {
       const user = await userRepository.findOne({ where: { email } });
 
       const isPasswordValid = encrypt.comparepassword(user.password, password);
+      if (!isPasswordValid) {
+        return res.status(400).json({ message: "Email or Password Incorrect" });
+      }
       if (!user || !isPasswordValid) {
         return res.status(404).json({ message: "User not found" });
       }
