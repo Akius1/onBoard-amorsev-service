@@ -5,10 +5,12 @@ import { Request, Response } from "express";
 import { userRouter } from "./routes/user.routes";
 import "reflect-metadata";
 import { errorHandler } from "./middleware/errorHandler";
+import cors = require('cors');
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 app.use(errorHandler);
 const { PORT = 3000 } = process.env;
 app.use("/auth", userRouter);
